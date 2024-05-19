@@ -14,7 +14,7 @@ function Navegador() {
     
     useEffect(() => {
       if(localStorage.getItem("usuarioActivo") === null)
-        navegar("/login")
+        //navegar("/login")
       setUsuarioActivo(localStorage.getItem("usuarioActivo"));
     }, [navegar, usuarioActivo])
 
@@ -66,7 +66,7 @@ const handleUsuariosClick = () => {
                     <ol className="breadcrumb">
                       
                         <li className="breadcrumb">
-                           
+
                                 {activeButton === 'Home' ? 'Home' : null}
                           
                         </li>
@@ -74,7 +74,7 @@ const handleUsuariosClick = () => {
                         <li className="breadcrumb-item">
                             
                                 {activeButton === 'Historias' ? 'Historias' : null}
-                         
+
                         </li>
                         <li className="breadcrumb">
                             {activeButton === 'Template' ? 'Template' : null}
@@ -187,21 +187,21 @@ const handleUsuariosClick = () => {
             <div className="user-info-container p-4 bg-white shadow-sm d-flex justify-content-between align-items-center rounded flex-grow-1">
               <i className="fas fa-user user-icon fs-1 primary-text border rounded-full secondary-bg p-4" id="izquierda"></i>
               <div className="user-details">
-                <h3 className="fs-2 mb-0">Brandon Dulian Garcia SUAREZ</h3>
-                <p className="fs-5 mb-1">Rol: Usuario</p>
-                <p className="fs-5 mb-1">Cargo: Paciente</p>
+                <h3 className="fs-2 mb-0">Yahir Andres Duran Cristancho</h3>
+                <p className="fs-5 mb-1">Rol: Medico</p>
+                <p className="fs-5 mb-1">Cargo: Medico General</p>
               </div>
               <div id="izquierda1">
                 <a className="navbar-brand" href="/">
                   <img src="./img/logo.png" alt="Login" style={{ maxWidth: '120px' }} />
-                  <p>Direccion: Unidades Tecnoligicas de santander</p>
+                  <p>Direccion: Unidades Tecnologicas de santander</p>
                 </a>
               </div>
             </div>
             <div className="col-md-40 d-flex flex-column align-items-center">
               
               {content}
-             
+              
               <Footer />
             </div>
           </div>

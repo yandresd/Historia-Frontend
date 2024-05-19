@@ -34,7 +34,7 @@ function Login() {
                                                     <input type="text" className="custom-input form-control form-control-lg " name="usuario" placeholder="Usuario" />
                                                 </div>
                                             </div>
-                                  
+                                    
                                     <div className="mb-3">
                                             <div className="input-group">
                                                 <span className="input-group-text bg-white"><i className="fas fa-lock text-primary"></i></span>

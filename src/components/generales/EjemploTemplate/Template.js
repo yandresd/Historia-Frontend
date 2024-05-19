@@ -14,16 +14,16 @@ function Template() {
     return (
         
             
-        <div style={{ backgroundImage: 'url(./img/fondo.png)', minHeight: '100vh' }}>
+        <div className="template-container" style={{ backgroundImage: 'url(./img/fondo.png)', minHeight: '100vh' }}>
             
-            <div className="container mt-2">
+            <div className="container mt-3">
                 
-                <div className="d-flex justify-content-between mb-2">
+                <div className="d-flex justify-content-between mb-3">
                     
-                    <button className="btn btn-success me-2" onClick={verLista}>
+                    <button className="btn btn-success me-3" onClick={verLista}>
                         <i className={mostrarLista ? "fas fa-plus" : "fas fa-list-alt"}></i> {/* Icono cambiará dependiendo de mostrarLista */}
                     </button>
-                    <button className="btn btn-primary" onClick={() => window.history.back()}>
+                    <button className="btn btn-primary ms-0">
                         <i className="fas fa-arrow-left"></i> Volver
                     </button>
                 </div>
