@@ -280,10 +280,10 @@ function FormHistorias(props) {
                         {formData.OrdenExamenes.Examenes.map((examen, index) => (
                             <div key={index}>
                                 <label for="index">{index + 1}: </label>
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].idExamenes`} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].nombreExamen`} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].codigoExamen`} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].descripcionExamen`} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
                             </div>
                         ))}
                     </div>
@@ -326,10 +326,10 @@ function FormHistorias(props) {
                                 {formData.OrdenExamenes.Examenes.map((examen, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td><input type="text" className="form-control" name={`OrdenExamenes.Examenes[${index}].idExamenes`} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" /></td>
-                                        <td><input type="text" className="form-control" name={`OrdenExamenes.Examenes[${index}].nombreExamen`} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" /></td>
-                                        <td><input type="text" className="form-control" name={`OrdenExamenes.Examenes[${index}].codigoExamen`} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" /></td>
-                                        <td><input type="text" className="form-control" name={`OrdenExamenes.Examenes[${index}].descripcionExamen`} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" /></td>
+                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" /></td>
+                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" /></td>
+                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" /></td>
+                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" /></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -338,10 +338,10 @@ function FormHistorias(props) {
                         {formData.OrdenExamenes.Examenes.map((examen, index) => (
                             <div key={index}>
                                 <label for="index">{index + 1}: </label>
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].idExamenes`} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].nombreExamen`} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].codigoExamen`} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
-                                <input type="text" name={`OrdenExamenes.Examenes[${index}].descripcionExamen`} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
+                                <input type="text" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
                             </div>
                         ))}
                     </div>

@@ -7,7 +7,7 @@ export async function getListarHistorias(){
 }
 
 export async function agregarHistoria(historia){
-    const res = await fetch(`${url}/Create`, {
+    const res = await fetch(url + "/Create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(historia)
@@ -17,7 +17,7 @@ export async function agregarHistoria(historia){
 }
 
 export async function actualizarHistoria(historia){
-    const res = await fetch(`${url}/Update/${historia._id}`, {
+    const res = await fetch(url + "/Update/  ${historia._id}", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(historia)
@@ -27,7 +27,7 @@ export async function actualizarHistoria(historia){
 }
 
 export async function eliminarHistoria(id){
-    const res = await fetch(`${url}/Delete/${id}`, {
+    const res = await fetch(url + "/Delete/ +${id}", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" }
     });
