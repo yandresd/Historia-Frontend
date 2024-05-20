@@ -1,9 +1,13 @@
+import { logRoles } from '@testing-library/react';
 import React, { useState, useEffect } from 'react'
 
 function FormHistorias(props) {
 
     const { onSave, historia } = props;
-    const [formData, setFormData] = useState({
+
+    const [showExamenes, setShowExamenes] = useState(false);
+
+    const [formData, setFormData,] = useState({
         _id: null,
         codigoHistoria: "",
         motivo: "",
@@ -105,6 +109,8 @@ function FormHistorias(props) {
         }
     });
 
+    
+
     useEffect(() => {
         if (historia) {
             setFormData(historia);
@@ -139,6 +145,19 @@ function FormHistorias(props) {
         e.preventDefault();
         onSave(formData);
     };
+
+    /*const toggleExamenes = (index) => {
+        setShowExamenes(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
+        console.log(index);
+    };*/
+
+    const toggleExamenes = () => {
+        setShowExamenes(prevState => !prevState);
+    };
+    
 
     return (
         <div>
@@ -176,7 +195,7 @@ function FormHistorias(props) {
                             <input type="text" name="paciente.direccionPaciente" value={formData.paciente.direccionPaciente} onChange={handleChange} placeholder="Dirección Paciente" />
                         </div>
                         <div>
-                            <label for="paciente.telefonoPaciente">Direccion:</label>
+                            <label for="paciente.telefonoPaciente">Telefono:</label>
                             <input type="text" name="paciente.telefonoPaciente" value={formData.paciente.telefonoPaciente} onChange={handleChange} placeholder="Teléfono Paciente" />
                         </div>
                         <div>
@@ -277,81 +296,136 @@ function FormHistorias(props) {
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>EXAMENES</h3>
-                        {formData.OrdenExamenes.Examenes.map((examen, index) => (
-                            <div key={index}>
-                                <label for="index">{index + 1}: </label>
-                                <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
-                                <input type="text" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
-                                <input type="text" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
-                                <input type="text" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
+                        <div className="container mt-3">
+                            <div className="d-flex justify-content-between mb-3">
+                                <table className="table table-hover shadow">
+                                    <thead className="bg-primary text-white">
+                                        <tr>
+                                            <th scope="col" className="table-primary">#</th>
+                                            <th scope="col" className="table-primary">Orden</th>
+                                            <th scope="col" className="table-primary">Vigencia</th>
+                                            <th scope="col" className="table-primary">Examenes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>{1}</td>
+                                            <td>{formData.OrdenExamenes.idOrdenExamenes}</td>
+                                            <td>{formData.OrdenExamenes.vigenciaExamenes}</td>
+                                            <td>
+                                                <button className="btn btn-outline-success btn-sm" type="button" onClick={() => toggleExamenes(0)}>
+                                                    <i className="fas fa-eye" ></i>
+                                                    {showExamenes ? ' Ocultar' : ' Ver'}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {showExamenes && ( //aqui muestra los examenes con el boton
+                                            <tr>
+                                                <td colSpan="4">
+                                                    <div className="table-responsive">
+                                                        <table className="table table-hover shadow">
+                                                            <thead className="bg-primary text-white">
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Codigo</th>
+                                                                    <th>Nombre</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {formData.OrdenExamenes.Examenes.map((examen, index) => (
+                                                                    <tr key={examen._id}>
+                                                                        <td>{index + 1}</td>
+                                                                        <td>{examen.codigoExamen}</td>
+                                                                        <td>{examen.nombreExamen}</td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>MEDICAMENTOS</h3>
-                        <div>
-                            <label for="ordenMedicamentos.indicacionesMedicamentos">Indicacciones:</label>
-                            <input type="text" name="ordenMedicamentos.indicacionesMedicamentos" value={formData.OrdenMedicamentos.indicacionesMedicamentos} onChange={handleChange} placeholder="Indicaciones Medicamento" />
-                        </div>
-                        <div>
-                            <label for="ordenMedicamentos.cantidadMedicamentos">Cantidad:</label>
-                            <input type="text" name="ordenMedicamentos.cantidadMedicamentos" value={formData.OrdenMedicamentos.cantidadMedicamentos} onChange={handleChange} placeholder="Cantidad Medicamentos" />
-                        </div>
-                        <div>
-                            <label for="ordenMedicamentos.dosisMedicamentos">Dosis:</label>
-                            <input type="text" name="ordenMedicamentos.dosisMedicamentos" value={formData.OrdenMedicamentos.dosisMedicamentos} onChange={handleChange} placeholder="Dosis Medicamentos" />
-                        </div>
-                        <div>
-                            <label for="ordenMedicamentos.entregasMedicamentos">Entregas:</label>
-                            <input type="text" name="ordenMedicamentos.entregasMedicamentos" value={formData.OrdenMedicamentos.entregasMedicamentos} onChange={handleChange} placeholder="Entregas Medicamentos" />
-                        </div>
-                        <div>
-                            <label for="ordenMedicamentos.vigenciaMedicamentos">Vigencia:</label>
-                            <input type="text" name="ordenMedicamentos.vigenciaMedicamentos" value={formData.OrdenMedicamentos.vigenciaMedicamentos} onChange={handleChange} placeholder="Vigencia Medicamentos" />
+
+
+                        <div className="container mt-3">
+                            <div className="d-flex justify-content-between mb-3">
+                                <table className="table table-hover shadow">
+                                    <thead className="bg-primary text-white">
+                                        <tr>
+                                            <th scope="col" className="table-primary">#</th>
+                                            <th scope="col" className="table-primary">Codigo</th>
+                                            <th scope="col" className="table-primary">Nombre</th>
+                                            <th scope="col" className="table-primary">Cantidad</th>
+                                            <th scope="col" className="table-primary">Indicaciones</th>
+                                            <th scope="col" className="table-primary">Dosis</th>
+                                            <th scope="col" className="table-primary">Vigencia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {formData.OrdenMedicamentos.medicamentos.map((medicamento, index) => (
+                                            <tr key={medicamento._id}>
+                                                <td>{index + 1}</td>
+                                                <td>{medicamento.codigoMedicamentos}</td>
+                                                <td>{medicamento.nombreMedicamentos}</td>
+                                                <td>{formData.OrdenMedicamentos.medicamentos.cantidadMedicamentos}</td>
+                                                <td>{formData.OrdenMedicamentos.medicamentos.indicacionesMedicamentos}</td>
+                                                <td>{formData.OrdenMedicamentos.medicamentos.dosisMedicamentos}</td>
+                                                <td>{formData.OrdenMedicamentos.medicamentos.vigenciaMedicamentos}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
-                        <table className="table table-bordered table-striped table-hover">
-                            <thead className="thead-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>ID Examen</th>
-                                    <th>Nombre Examen</th>
-                                    <th>Código Examen</th>
-                                    <th>Descripción Examen</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {formData.OrdenExamenes.Examenes.map((examen, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" /></td>
-                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" /></td>
-                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" /></td>
-                                        <td><input type="text" className="form-control" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" /></td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        
-                        {formData.OrdenExamenes.Examenes.map((examen, index) => (
-                            <div key={index}>
-                                <label for="index">{index + 1}: </label>
-                                <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
-                                <input type="text" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
-                                <input type="text" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
-                                <input type="text" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
-                            </div>
-                        ))}
+
                     </div>
                 </div>
-
-
+                <div className="col-md-6">
+                    <div className="alert alert-secondary" role="alert">
+                        <h3>REMISIONES</h3>
+                        <div>
+                            <label htmlFor="OrdenRemisiones.nombreRemisiones">Nombre:</label>
+                            <input type="text" name="OrdenRemisiones.nombreRemisiones" value={formData.OrdenRemisiones.nombreRemisiones} onChange={handleChange} placeholder="Nombre Remisiones" />
+                        </div>
+                        <div>
+                            <label htmlFor="OrdenRemisiones.codigoRemisiones">Código:</label>
+                            <input type="text" name="OrdenRemisiones.codigoRemisiones" value={formData.OrdenRemisiones.codigoRemisiones} onChange={handleChange} placeholder="Código Remisiones" />
+                        </div>
+                        <div>
+                            <label htmlFor="OrdenRemisiones.motivoRemisiones">Motivo:</label>
+                            <input type="text" name="OrdenRemisiones.motivoRemisiones" value={formData.OrdenRemisiones.motivoRemisiones} onChange={handleChange} placeholder="Motivo Remisiones" />
+                        </div>
+                        <div>
+                            <label htmlFor="OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones">Especialidad:</label>
+                            <input type="text" name="OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones" value={formData.OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones} onChange={handleChange} placeholder="Nombre Especialidad Remisiones" />
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     )
-}
+}     
 
 export default FormHistorias
+
+                    {/*{formData.OrdenExamenes.Examenes.map((examen, index) => (
+    <div key={index}>
+        <label for="index">{index + 1}: </label>
+        <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
+        <input type="text" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
+        <input type="text" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
+        <input type="text" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
+    </div>
+))}*/}

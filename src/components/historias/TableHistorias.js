@@ -7,7 +7,7 @@ function TableHistorias(props) {
     console.log(historias);
     
     if (!historias || !historias.historia) {
-        return <p>No hay historias disponibles.</p>;
+        return <p>Cargando...</p>;
     }
 
     return (
