@@ -6,6 +6,7 @@ function FormHistorias(props) {
     const { onSave, historia } = props;
 
     const [showExamenes, setShowExamenes] = useState(false);
+    const [showOrdenExamenes, setShowOrdenExamenes] = useState(null);
 
     const [formData, setFormData,] = useState({
         _id: null,
@@ -109,7 +110,7 @@ function FormHistorias(props) {
         }
     });
 
-    
+
 
     useEffect(() => {
         if (historia) {
@@ -146,18 +147,34 @@ function FormHistorias(props) {
         onSave(formData);
     };
 
-    /*const toggleExamenes = (index) => {
+    const toggleExamenesDatos = (index) => {
         setShowExamenes(prevState => ({
             ...prevState,
             [index]: !prevState[index]
         }));
         console.log(index);
-    };*/
+    };
 
-    const toggleExamenes = () => {
+    const toggleExamenesDato = () => {
         setShowExamenes(prevState => !prevState);
     };
-    
+
+    useEffect(() => {
+        if (typeof formData.OrdenExamenes === 'object' && formData.OrdenExamenes !== null) {
+            if (Array.isArray(formData.OrdenExamenes)) {
+                console.log("Si es un Array:");
+                setShowOrdenExamenes(false);
+            } else {
+                console.log("No es un Array:");
+                setShowOrdenExamenes(true);
+            }
+        } else {
+            console.log("No es un objeto o es nulo:");
+            setShowOrdenExamenes(true);
+        }
+    }, [formData.OrdenExamenes]);
+
+
 
     return (
         <div>
@@ -171,6 +188,7 @@ function FormHistorias(props) {
 
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>INFORMACION PACIENTE</h3>
@@ -202,9 +220,9 @@ function FormHistorias(props) {
                             <label for="paciente.correoPaciente">Correo:</label>
                             <input type="text" name="paciente.correoPaciente" value={formData.paciente.correoPaciente} onChange={handleChange} placeholder="Correo Paciente" />
                         </div>
-
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>VALORACION</h3>
@@ -246,6 +264,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>MEDICO</h3>
@@ -267,6 +286,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>CITA</h3>
@@ -288,11 +308,14 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-20">
                     <div className="alert alert-secondary" role="alert">
                         <h3>ORDENES</h3>
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>EXAMENES</h3>
@@ -308,50 +331,98 @@ function FormHistorias(props) {
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        <tr>
-                                            <td>{1}</td>
-                                            <td>{formData.OrdenExamenes.idOrdenExamenes}</td>
-                                            <td>{formData.OrdenExamenes.vigenciaExamenes}</td>
-                                            <td>
-                                                <button className="btn btn-outline-success btn-sm" type="button" onClick={() => toggleExamenes(0)}>
-                                                    <i className="fas fa-eye" ></i>
-                                                    {showExamenes ? ' Ocultar' : ' Ver'}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        {showExamenes && ( //aqui muestra los examenes con el boton
-                                            <tr>
-                                                <td colSpan="4">
-                                                    <div className="table-responsive">
-                                                        <table className="table table-hover shadow">
-                                                            <thead className="bg-primary text-white">
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Codigo</th>
-                                                                    <th>Nombre</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {formData.OrdenExamenes.Examenes.map((examen, index) => (
-                                                                    <tr key={examen._id}>
-                                                                        <td>{index + 1}</td>
-                                                                        <td>{examen.codigoExamen}</td>
-                                                                        <td>{examen.nombreExamen}</td>
-                                                                    </tr>
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        {showOrdenExamenes && ( // se ejecuta cuando la orden examenes tiene 1 dato
+                                            <>
+                                                <tr>
+                                                    <td>{1}</td>
+                                                    <td>{formData.OrdenExamenes.idOrdenExamenes}</td>
+                                                    <td>{formData.OrdenExamenes.vigenciaExamenes}</td>
+                                                    <td>
+                                                        <button className="btn btn-outline-success btn-sm" type="button" onClick={() => toggleExamenesDato()}>
+                                                            <i className="fas fa-eye"></i>
+                                                            {showExamenes ? ' Ocultar' : ' Ver'}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                {showExamenes && ( //aqui muestra los examenes con el boton
+                                                    <tr>
+                                                        <td colSpan="4">
+                                                            <div className="table-responsive">
+                                                                <table className="table table-hover shadow">
+                                                                    <thead className="bg-primary text-white">
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Codigo</th>
+                                                                            <th>Nombre</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {formData.OrdenExamenes.Examenes.map((examen, index) => (
+                                                                            <tr key={examen._id}>
+                                                                                <td>{index + 1}</td>
+                                                                                <td>{examen.codigoExamen}</td>
+                                                                                <td>{examen.nombreExamen}</td>
+                                                                            </tr>
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </>
                                         )}
+                                        {/*--------------------------------------------------------*/}
+                                        {!showOrdenExamenes && Array.isArray(formData.OrdenExamenes) && formData.OrdenExamenes.map((ordenExamen, index) => ( // se ejecuta cuando la orden examenes es Array
+                                            <React.Fragment key={ordenExamen._id}>
+                                                <tr>
+                                                    <td>{index + 1}</td>
+                                                    <td>{ordenExamen.codigoOrden}</td>
+                                                    <td>{ordenExamen.vigencia}</td>
+                                                    <td>
+                                                        <button className="btn btn-outline-success btn-sm" type="button" onClick={() => toggleExamenesDatos(index)}>
+                                                            <i className="fas fa-eye"></i>
+                                                            {showExamenes[index] ? ' Ocultar' : ' Ver'}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                {showExamenes[index] && (
+                                                    <tr>
+                                                        <td colSpan="4">
+                                                            <div className="table-responsive">
+                                                                <table className="table table-hover shadow">
+                                                                    <thead className="bg-primary text-white">
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Codigo</th>
+                                                                            <th>Nombre</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {Array.isArray(ordenExamen.Examenes) && ordenExamen.Examenes.map((examen, examenIndex) => (
+                                                                            <tr key={examenIndex}>
+                                                                                <td>{examenIndex + 1}</td>
+                                                                                <td>{examen.codigoExamen}</td>
+                                                                                <td>{examen.nombreExamen}</td>
+                                                                            </tr>
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </React.Fragment>
+                                        ))}
+
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>MEDICAMENTOS</h3>
@@ -392,35 +463,45 @@ function FormHistorias(props) {
 
                     </div>
                 </div>
+                {/*------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>REMISIONES</h3>
-                        <div>
-                            <label htmlFor="OrdenRemisiones.nombreRemisiones">Nombre:</label>
-                            <input type="text" name="OrdenRemisiones.nombreRemisiones" value={formData.OrdenRemisiones.nombreRemisiones} onChange={handleChange} placeholder="Nombre Remisiones" />
-                        </div>
-                        <div>
-                            <label htmlFor="OrdenRemisiones.codigoRemisiones">Código:</label>
-                            <input type="text" name="OrdenRemisiones.codigoRemisiones" value={formData.OrdenRemisiones.codigoRemisiones} onChange={handleChange} placeholder="Código Remisiones" />
-                        </div>
-                        <div>
-                            <label htmlFor="OrdenRemisiones.motivoRemisiones">Motivo:</label>
-                            <input type="text" name="OrdenRemisiones.motivoRemisiones" value={formData.OrdenRemisiones.motivoRemisiones} onChange={handleChange} placeholder="Motivo Remisiones" />
-                        </div>
-                        <div>
-                            <label htmlFor="OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones">Especialidad:</label>
-                            <input type="text" name="OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones" value={formData.OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones} onChange={handleChange} placeholder="Nombre Especialidad Remisiones" />
+                        <div className="container mt-3">
+                            <div className="d-flex justify-content-between mb-3">
+                                <table className="table table-hover shadow">
+                                    <thead className="bg-primary text-white">
+                                        <tr>
+                                            <th scope="col" className="table-primary">#</th>
+                                            <th scope="col" className="table-primary">Codigo</th>
+                                            <th scope="col" className="table-primary">Nombre</th>
+                                            <th scope="col" className="table-primary">Motivo</th>
+                                            <th scope="col" className="table-primary">Especialidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{1}</td>
+                                            <td>{formData.OrdenRemisiones.codigoRemisiones}</td>
+                                            <td>{formData.OrdenRemisiones.nombreRemisiones}</td>
+                                            <td>{formData.OrdenRemisiones.motivoRemisiones}</td>
+                                            <td>{formData.OrdenRemisiones.especialidadRemisiones.nombreEspecialidadRemisiones}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     )
-}     
+}
 
 export default FormHistorias
 
-                    {/*{formData.OrdenExamenes.Examenes.map((examen, index) => (
+{/*{formData.OrdenExamenes.Examenes.map((examen, index) => (
     <div key={index}>
         <label for="index">{index + 1}: </label>
         <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
