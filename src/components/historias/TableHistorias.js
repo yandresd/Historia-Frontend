@@ -39,8 +39,6 @@ function TableHistorias(props) {
                         <td>
                             <button className="btn btn-outline-danger btn-sm me-2"><i className="fas fa-trash" onClick={() => {onDelete(item._id)}}></i></button>
                             <button className="btn btn-outline-secondary btn-sm"><i className="fas fa-eye" onClick={() => {onView(item)}}></i></button>
-                            {/*<button className='btn btn-danger btn-lg' onClick={() => {onDelete(item._id)}}>Eliminar</button>
-                            <button className='btn btn-success btn-lg' onClick={() => {onView(item)}}>Ver</button>*/}
                         </td>
                     </tr>)
                 })}

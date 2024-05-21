@@ -169,6 +169,8 @@ function Historias(props) {
     console.log(usuarioActivo)
   }*/
 
+  console.log(mostrarLista);
+
   return (
     <div style={{ backgroundImage: 'url(/fondo.png)', minHeight: '100vh' }}>
       <div className="container mt-3">
