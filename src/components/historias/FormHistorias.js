@@ -172,7 +172,7 @@ function FormHistorias(props) {
 
     //Convertir fechas citas
     const fechaCitaDate = new Date(formData.cita.fechaAgenda);
-    
+
     const fechaCita = fechaCitaDate.toLocaleDateString('es-ES', {
         day: '2-digit',
         month: '2-digit',
@@ -208,7 +208,7 @@ function FormHistorias(props) {
 
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*INFORMACION PACIENTE------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>INFORMACION PACIENTE</h3>
@@ -242,7 +242,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*VALORACION------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>VALORACION</h3>
@@ -284,7 +284,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*MEDICO------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>MEDICO</h3>
@@ -306,7 +306,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*CITA------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>CITA</h3>
@@ -329,13 +329,13 @@ function FormHistorias(props) {
                     </div>
                 </div>
                 {/*------------------------------------------------------------------------------*/}
-                {/*------------------------------------------------------------------------------*/}
+                {/*ORDENES------------------------------------------------------------------------------*/}
                 <div className="col-md-20">
                     <div className="alert alert-secondary" role="alert">
                         <h3>ORDENES</h3>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*EXAMENES------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>EXAMENES</h3>
@@ -357,7 +357,7 @@ function FormHistorias(props) {
                                             <td>{formData.OrdenExamenes.vigenciaExamenes}</td>
                                             <td>
                                                 <button className="btn btn-outline-success btn-sm" type="button" onClick={() => toggleExamenesDato()}>
-                                                    <i className={`fas ${showExamenes ? 'fa-low-vision' : 'fa-eye'}`}></i>
+                                                    <i className={`fas ${!showExamenes ? 'fa-low-vision' : 'fa-eye'}`}></i>
                                                     {/*{showExamenes ? 'Ocultar' : 'Ver'}*/}
                                                 </button>
                                             </td>
@@ -394,7 +394,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*MEDICAMENTOS------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>MEDICAMENTOS</h3>
@@ -422,7 +422,7 @@ function FormHistorias(props) {
                                             <td>{formData.OrdenMedicamentos.vigenciaMedicamentos}</td>
                                             <td>
                                                 <button className="btn btn-outline-success btn-sm" type="button" onClick={() => toggleMedicamentos()}>
-                                                <i className={`fas ${showMedicamentos ? 'fa-low-vision' : 'fa-eye'}`}></i>
+                                                    <i className={`fas ${!showMedicamentos ? 'fa-low-vision' : 'fa-eye'}`}></i>
                                                     {/*{showMedicamentos ? 'Ocultar' : 'Ver'}*/}
                                                 </button>
                                             </td>
@@ -459,7 +459,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*PROCEDIMIENTOS------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>PROCEDIMIENTOS</h3>
@@ -489,7 +489,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*REMISIONES------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>REMISIONES</h3>
@@ -519,7 +519,7 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
-                {/*------------------------------------------------------------------------------*/}
+                {/*INCAPACIDADES------------------------------------------------------------------------------*/}
                 <div className="col-md-6">
                     <div className="alert alert-secondary" role="alert">
                         <h3>INCAPACIDADES</h3>
@@ -549,19 +549,12 @@ function FormHistorias(props) {
                         </div>
                     </div>
                 </div>
+                <button className="btn btn-outline-success btn-sm" type="button" onClick={onSave}>
+                    Guardar
+                </button>
             </div>
         </div>
     )
 }
 
 export default FormHistorias
-
-{/*{formData.OrdenExamenes.Examenes.map((examen, index) => (
-    <div key={index}>
-        <label for="index">{index + 1}: </label>
-        <input type="text" name={"OrdenExamenes.Examenes.idExamenes"} value={examen.idExamenes} onChange={handleChange} placeholder="ID Examen" />
-        <input type="text" name={"OrdenExamenes.Examenes.nombreExamen"} value={examen.nombreExamen} onChange={handleChange} placeholder="Nombre Examen" />
-        <input type="text" name={"OrdenExamenes.Examenes.codigoExamen"} value={examen.codigoExamen} onChange={handleChange} placeholder="Código Examen" />
-        <input type="text" name={"OrdenExamenes.Examenes.descripcionExamen"} value={examen.descripcionExamen} onChange={handleChange} placeholder="Descripción Examen" />
-    </div>
-))}*/}

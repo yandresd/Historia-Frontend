@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Navegador from '../generales/Navegador';
 import TableHistorias from './TableHistorias';
 import FormHistorias from './FormHistorias';
+//import SearchForm from './SearchForm';
 import { getListarHistorias, agregarHistoria, actualizarHistoria, eliminarHistoria } from '../../API/HistoriasApi';
+import Swal from 'sweetalert2'
 //import { useNavigate } from 'react-router-dom';
 
 import Footer from '../generales/Footer'
@@ -12,7 +14,11 @@ function Historias(props) {
 
   const [historias, setHistorias] = useState([]);
   const [historia, setHistoria] = useState(null);
+  const [historiasFiltro, sethistoriasFiltro] = useState([]);
   const [mostrarLista, setMostrarLista] = useState(true);
+  //es para la busqueda
+  //const [searchType, setSearchType] = useState("documento");
+  //const [query, setQuery] = useState("");
 
   useEffect(() => {
     listar();
@@ -20,12 +26,12 @@ function Historias(props) {
 
   const listar = () => {
     getListarHistorias()
-      .then(data => {
-        //console.log(data);
-        setHistorias(data);
-      })
+      .then(data => { setHistorias(data) })
       .catch(err => console.log(err));
   };
+
+  if (historias.length === 0)
+    listar();
 
   const verLista = () => {
     if (mostrarLista) {
@@ -132,31 +138,70 @@ function Historias(props) {
           fechaFinIncapacidades: ""
         },
       });
-
       setMostrarLista(true);
     }
   };
 
-
   const guardar = (historia) => {
-    if (!historia._id) {
-      agregarHistoria(historia)
-        .then(() => listar())
-        .catch(err => console.log(err));
-    } else {
-      actualizarHistoria(historia)
-        .then(() => listar())
-        .catch(err => console.log(err));
-    }
-    setMostrarLista(true);
-  };
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, guardarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(historia._id);
+        if (!historia._id) {
+          agregarHistoria(historia)
+            .then(() => listar())
+            .catch(err => console.log(err));
+        } else {
+          const respuesta = actualizarHistoria(historia);
+          console.log(respuesta);
+          actualizarHistoria(historia)
+            .then(() => listar())
+            .catch(err => console.log(err));
+        };
+        Swal.fire(
+          '¡Guardado!',
+          'El registro ha sido guardado.',
+          'success'
+        );
+        setMostrarLista(true);
+      }
+    }).catch(err => console.log(err));
+  }
 
   const eliminar = (id) => {
-    eliminarHistoria(id)
-      .then(data => {
-        if (data.eliminarHistoriadCount === 1) listar();
-      })
-      .catch(err => console.log(err));
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarHistoria(id)
+          .then(data => {
+            console.log(data);
+            console.log(id);
+            if (data.eliminarHistoriadCount === 1) {
+              Swal.fire(
+                '¡Eliminado!',
+                'El registro ha sido eliminado.',
+                'success'
+              );
+              listar();
+            }
+          })
+          .catch(err => console.log(err));
+      }
+    });
   };
 
   const ver = (historia) => {
@@ -164,21 +209,54 @@ function Historias(props) {
     setMostrarLista(false);
   };
 
+  /*const handleSearch = (type, query) => {
+    if (type === 'documento') {
+      console.log("esta en documento");
+      //sethistoriasFsethistoriasFiltroiltro(historias.filter(h => h.paciente.documentoPaciente.includes(query)));
+    } else if (type === 'nombre') {
+      console.log("esta en nombre");
+      //setFilteredHistorias(historias.filter(h => h.paciente.nombresPaciente.toLowerCase().includes(query.toLowerCase())));
+    }
+  };*/
+
+
   /*const permisos = (usuario) => {
     usuarioActivo = usuario;
     console.log(usuarioActivo)
   }*/
 
-  console.log(mostrarLista);
+  //console.log(mostrarLista);
 
   return (
     <div style={{ backgroundImage: 'url(/fondo.png)', minHeight: '100vh' }}>
       <div className="container mt-3">
         <div className="d-flex justify-content-between mb-3">
           <button className="btn btn-success me-3" onClick={verLista}>
-            <i className={mostrarLista ? "fas fa-plus" : "fas fa-list-alt"}></i> {/* Icono cambiará dependiendo de mostrarLista */}
+            <i className={mostrarLista ? "fas fa-plus" : "fas fa-list-alt"}></i>
           </button>
-          <button className="btn btn-primary ms-0">
+
+          {!mostrarLista ? (
+            <button className="btn btn-primary ms-0" onClick={verLista}>
+              <i className="fas fa-save"></i> Guardar
+            </button>
+          ) : (
+            <>
+              {/*<button className="btn btn-success me-2 btn-block">
+                <i className="fas fa-plus"></i>
+              </button>
+              <button className="btn btn-danger me-2 btn-block">
+                <i className="fas fa-trash"></i>
+              </button>
+              <button className="btn btn-primary me-2 btn-block">
+                <i className="fas fa-eye"></i>
+              </button>
+              <button className="btn btn-secondary btn-block">
+                <i className="fas fa-save"></i>
+              </button>*/}
+            </>
+          )}
+
+          <button className="btn btn-primary ms-0" onClick={verLista}>
             <i className="fas fa-arrow-left"></i> Volver
           </button>
         </div>
@@ -190,7 +268,7 @@ function Historias(props) {
             </div>
           )}
           {mostrarLista && (
-            <TableHistorias historias={historias} oneliminarHistoria={eliminar} onView={ver} />
+            <TableHistorias historias={historias} historiasFiltro={historiasFiltro} onDelete={eliminar} onView={ver} verLista={verLista} />
           )}
         </div>
       </div>
