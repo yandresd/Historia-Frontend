@@ -15,8 +15,6 @@ function TableHistorias(props) {
             <table className="table table-hover shadow">
                 <thead className="bg-primary text-white">
                     <tr>
-                        <th scope="col" className="table-primary">Codigo</th>
-                        <th scope="col" className="table-primary">Tipo Documento</th>
                         <th scope="col" className="table-primary">Documento</th>
                         <th scope="col" className="table-primary">Nombres</th>
                         <th scope="col" className="table-primary">Apelidos</th>
@@ -30,14 +28,8 @@ function TableHistorias(props) {
                     {historias.historia.map((item, index) => {
                         // Cambia el tipo de fecha de cada cita.Agenda
                         const fechaCitaDate = new Date(item.cita.fechaAgenda);
-                        const fechaCita = fechaCitaDate.toLocaleDateString('es-ES', {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: 'numeric'
-                        });
+                        const fechaCita = new Date(item.cita.fechaAgenda).toLocaleDateString(); // la fecha
                         return (<tr key={item._id}>
-                            <td>{item.codigoHistoria}</td>
-                            <td>{item.paciente.tipoDocumentoPaciente}</td>
                             <td>{item.paciente.documentoPaciente}</td>
                             <td>{item.paciente.nombresPaciente}</td>
                             <td>{item.paciente.apellidosPaciente}</td>

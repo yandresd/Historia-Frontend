@@ -109,9 +109,7 @@ function FormHistorias(props) {
             fechaFinIncapacidades: ""
         }
     });
-
-
-
+    
     useEffect(() => {
         if (historia) {
             setFormData(historia);
